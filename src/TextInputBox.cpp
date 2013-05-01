@@ -27,7 +27,7 @@ void * TextInputBox::changeState(int x, int y, int click, void * package){
 	text->setText(text->getText().substr(0, text->getText().length() - 1));
       else if(nextLetter == '.' || nextLetter == ' '
 	      || nextLetter == '?' || nextLetter == '!'
-	      || nextLetter == ',' || nextLetter == '''
+	      || nextLetter == ',' || nextLetter == '\''
 	      || (nextLetter >= '0' && nextLetter <= '9')
 	      || (nextLetter >= 'a' && nextLetter <= 'z')
 	      || (nextLetter >= 'A' && nextLetter <= 'Z'))
