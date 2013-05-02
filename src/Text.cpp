@@ -20,6 +20,7 @@ void Text::setText(std::string text){
       textLines.push_back(substring.substr(0, n));
       substring = substring.substr(n + 1, std::string::npos);
   }
+  numLines = textLines.size();
   image.clear();
   for(unsigned int i = 0; i < textLines.size(); i++)
     image.push_back(TTF_RenderText_Blended(font, textLines.at(i).c_str(), color));
@@ -33,6 +34,9 @@ void Text::setText(std::string text){
   lineSkip = TTF_FontLineSkip(font);
   h = (textLines.size() - 1) * lineSkip + h;
   setDimensions(w, h);
+}
+int Text::getLines(){
+  return numLines;
 }
 void Text::draw(SDL_Surface * display){
   SDL_Rect temp;

@@ -16,6 +16,7 @@ Screen * GuiScreen::draw(SDL_Surface * display){
   myColor.g = 200;
   myColor.b = 150;
   SDL_EnableUNICODE(1);
+  SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL); // backspace hold down
   while(true){
     if(SDL_PollEvent(&event)){
       switch(event.type){

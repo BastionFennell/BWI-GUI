@@ -11,6 +11,9 @@ class TextInputBox : public Interactive{
   Text * getTextObject(){return text;}
   void draw(SDL_Surface * display);
   Drawable * getImg();
+  int maxChars;
+  int currentLine;
+  bool full; //don't write outside the box
   void * changeState(int x, int y, int click, void * package = NULL); //pass in string as package?
   Text * text;
   Drawable * box;

@@ -17,6 +17,8 @@ class Text : public Drawable{
   SDL_Color color;
   TTF_Font * font;
   int lineSkip;
+  int numLines;
+  int getLines();
   std::vector<SDL_Surface *> image;
 };
 
