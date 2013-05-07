@@ -33,7 +33,7 @@ void * foo2(void * package){
 int main(int argc, char **argv){
   SDL_Init(SDL_INIT_VIDEO);
   SDL_WM_SetCaption("BWI", "BWI");
-  SDL_Surface * display = SDL_SetVideoMode(VIDEO_WIDTH, VIDEO_HEIGHT, 0, 0);
+  SDL_Surface * display = SDL_SetVideoMode(VIDEO_WIDTH, VIDEO_HEIGHT, 0, SDL_DOUBLEBUF);
   TTF_Init();
   ros::init(argc, argv, "talker");
   ros::NodeHandle n;
@@ -53,35 +53,22 @@ int main(int argc, char **argv){
   Drawable * inputBox = new Picture("resources/inputBox.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 4);
   Picture * myBackground = new Picture("resources/1.png", 0, 0);
   Picture * myBackground2 = new Picture("resources/2.png", 0, 0);
-  Picture * map = new Picture("resources/map.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 4);
+  Picture * map = new Picture("resources/map.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 6);
   TTF_Font * myFont = TTF_OpenFont("resources/Inconsolata.ttf", 20);
   SDL_Color myColor;
   myColor.r = 0;
   myColor.g = 0;
   myColor.b = 0;
   TextInputBox * myInput = new TextInputBox(inputBox, myFont, myColor, NULL);
-  Text * myText1 = new Text(myFont, "Need to get somewhere or find out where you are?\n Check the map!", VIDEO_WIDTH / 4 + 50, VIDEO_HEIGHT / 4 + 50, &myColor);
-  Text * myText2 = new Text(myFont, "Want to ask your crush on a date, but don't have the guts?\n Have me say it!", VIDEO_WIDTH / 2 + 350, 100, &myColor);
-  Text * myText3 = new Text(myFont, "DO NOT PRESS!", 100, VIDEO_HEIGHT / 2 + 200, &myColor);
-  Text * myText4 = new Text(myFont, "Want to see my awesome dance moves?\n Here it comes!", VIDEO_WIDTH / 2 + 350, VIDEO_HEIGHT / 2 + 200, &myColor);
-  Text * returnText = new Text(myFont, "BACK", 350, 100, &myColor);
-  button1[0] = new Picture("resources/button.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 6);
-  button1[1] = new Picture("resources/button_down.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 6);
-  button1[2] = new Picture("resources/button_hover.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 6);  
-  Movable * movableItem = new Movable(new Picture("resources/button.png", 800, 500));
-  movableItem->setPriority(1);
-  button2[0] = new Picture("resources/button.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT / 6 );
-  button2[1] = new Picture("resources/button_down.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT / 6);
-  button2[2] = new Picture("resources/button_hover.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT / 6);
+  Text * myText1 = new Text(myFont, "Map", VIDEO_WIDTH / 4 - 50, VIDEO_HEIGHT / 2, &myColor);
+  Text * myText2 = new Text(myFont, "Speech", VIDEO_WIDTH / 2 + 250, VIDEO_HEIGHT / 2, &myColor);
+  button1[0] = new Picture("resources/mapButton.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 4);
+  button1[1] = new Picture("resources/mapButton.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 4);
+  button1[2] = new Picture("resources/mapButton.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT / 4);  
+  button2[0] = new Picture("resources/speechButton.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT / 4 );
+  button2[1] = new Picture("resources/speechButton.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT / 4);
+  button2[2] = new Picture("resources/speechButton.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT / 4);
 
-  button3[0] = new Picture("resources/button.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT * 4 / 6);
-  button3[1] = new Picture("resources/button_down.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT * 4 / 6);
-  button3[2] = new Picture("resources/button_hover.png", VIDEO_WIDTH / 6, VIDEO_HEIGHT * 4 / 6);
-
-  button4[0] = new Picture("resources/button.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT * 4 / 6);
-  button4[1] = new Picture("resources/button_down.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT * 4/ 6);
-  button4[2] = new Picture("resources/button_hover.png", VIDEO_WIDTH * 4 / 6, VIDEO_HEIGHT * 4 / 6);
-  
   returnButton[0] = new Picture("resources/backArrow.png", 50, VIDEO_HEIGHT - 200);
   returnButton[1] = new Picture("resources/backArrow.png", 50, VIDEO_HEIGHT - 200);
   returnButton[2] = new Picture("resources/backArrow.png", 50, VIDEO_HEIGHT - 200);
@@ -98,10 +85,8 @@ int main(int argc, char **argv){
   Button * myReturnButton = new Button(returnButton, myScreen, &foo);
   Button * myButton1 = new Button(button1, mapScreen);
   Button * myButton2 = new Button(button2, speechScreen);
-  Button * myButton3 = new Button(button3, mapScreen);
-  Button * myButton4 = new Button(button4, mapScreen);
   Button * speech = new Button(speechButton, myInput, false, &foo2);
-  myScreen->addItem(myButton1)->addItem(myButton2)->addItem(myBackground)->addItem(myText1)->addItem(myText2)->addItem(myButton3)->addItem(myText3); //->addItem(myText3)->addItem(myText4)->addItem(myButton3)->addItem(myButton4)
+  myScreen->addItem(myButton1)->addItem(myButton2)->addItem(myBackground)->addItem(myText1)->addItem(myText2); //->addItem(myText3)->addItem(myText4)->addItem(myButton3)->addItem(myButton4)
   mapScreen->addItem(myReturnButton)->addItem(myBackground)->addItem(map);
   speechScreen->addItem(myReturnButton)->addItem(myBackground)->addItem(speech)->addItem(myInput);
   std::cout << myInput << std::endl;
