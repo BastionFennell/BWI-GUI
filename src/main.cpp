@@ -31,9 +31,9 @@ void * foo2(void * package){
   return NULL;
 }
 int main(int argc, char **argv){
+  SDL_Surface * display = SDL_SetVideoMode(VIDEO_WIDTH, VIDEO_HEIGHT, 0, SDL_DOUBLEBUF);
   SDL_Init(SDL_INIT_VIDEO);
   SDL_WM_SetCaption("BWI", "BWI");
-  SDL_Surface * display = SDL_SetVideoMode(VIDEO_WIDTH, VIDEO_HEIGHT, 0, SDL_DOUBLEBUF);
   TTF_Init();
   ros::init(argc, argv, "talker");
   ros::NodeHandle n;
